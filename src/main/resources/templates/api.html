@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>API Page</title>
+</head>
+<body>
+<h1>API Page</h1>
+<form id="apiForm">
+    <label for="apiRequest">API Request1:</label>
+    <input type="text" id="apiRequest" name="apiRequest">
+    <button type="submit">Submit</button>
+</form>
+
+<div id="resultDiv"></div>
+
+<div id="dbResultDiv"></div>
+<form id="apiForm2">
+    <label for="apiRequest2">API Request2:</label>
+    <input type="text" id="apiRequest2" name="apiRequest2">
+    <button type="submit">Submit</button>
+</form>
+
+<div id="resultDiv2"></div>
+<div id="dbResultDiv"></div>
+
+<script>
+    document.getElementById("apiForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const apiRequest = document.getElementById("apiRequest").value;
+        fetch("/process?apiRequest=" + encodeURIComponent(apiRequest))
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("resultDiv").innerHTML = data;
+            });
+    });
+    // add new form
+    document.getElementById("apiForm2").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const apiRequest2 = document.getElementById("apiRequest2").value;
+        fetch("/process2?apiRequest2=" + encodeURIComponent(apiRequest2))
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("resultDiv2").innerHTML = data;
+            });
+    });
+
+<!--    document.getElementById("dbSubmitButton").addEventListener("click", function() {-->
+<!--    const dbRequest = document.getElementById("dbRequest").value;-->
+
+<!--    fetch("/database-request?dbRequest=" + encodeURIComponent(dbRequest))-->
+<!--    .then(response => response.text())-->
+<!--    .then(data => {-->
+<!--        document.getElementById("dbResultDiv2").innerHTML = data;-->
+<!--    });-->
+<!--});-->
+
+</script>
+
+</body>
+</html>
